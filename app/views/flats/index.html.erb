@@ -1,0 +1,60 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">Simple Airbnb</a>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="ms-auto d-flex">
+          <form class="d-flex my-2 my-lg-0">
+            <input class="form-control me-2" name="query" type="search" placeholder="Search" aria-label="Search" value="">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+          <a class="btn btn-outline-primary my-2 my-sm-0 ms-2" href="/flats/new">Add Flat</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mt-3">
+    <div class="row">
+      <div class="col-12">
+        <h1>All our Flats</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <p>All <%= Flat.count %> flats.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mt-3">
+    <div class="row">
+      <% @flats.each do |flat| %>
+        <div class="col-md-4">
+          <div class="flat-card">
+            <div class="flat-card-image" style="background-image: url('https://images.unsplash.com/photo-1494526585095-c41746248156?w=1200')"></div>
+            <div class="flat-card-content">
+              <div class="flat-card-title">
+                <h4 id="restaurant_<%= flat.id %>"><%= link_to flat.name, flat_path(flat) %></h4>
+              </div>
+              <p><%= flat.address %></p>
+              <div class="d-flex">
+                <div class="d-flex align-items-center">
+                  <i class="fa-solid fa-people-line"></i>
+                  <span><%= flat.number_of_guests %></span>
+                </div>
+                <div class="d-flex align-items-center ms-3">
+                  <i class="fa-solid fa-euro-sign"></i>
+                  <span><%= flat.price_per_night %></span>
+                </div>
+              </div>
+            </div>
+            <div class="flat-card-actions">
+              <a href="/flats/<%= flat.id %>">More info</a>
+              <a class="ms-3 text-warning" href="/flats/<%= flat.id %>/edit">Edit</a>
+              <a data-turbo-method="delete" data-turbo-confirm="Are you sure?" class="ms-3 text-danger" href="/flats/<%= flat.id %>">Remove</a>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
